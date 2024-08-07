@@ -13,11 +13,9 @@ delr = 10  # Cell size in x-direction (ft)
 delc = 10  # Cell size in y-direction (ft)
 
 top = 100  # Top of the model (ft MSL)
-# botm = [66.67, 33.33, 0]  # Bottom elevations of each layer (ft MSL)
-# botm = [30, 20, 10]  # Bottom elevation of each layer
-# botm = [90, 80, 70]  # Bottom elevation of each layer
-botm = [70, 60, 0]
-initial_head = 150  # Initial hydraulic head (ft)
+botm = [40, 30, 0]
+# botm = [70, 60, 0]
+initial_head = 150  # Initial head (ft)
 K = 20  # Hydraulic conductivity (ft/day)
 Q = -58000  # Pumping rate (ft^3/day), negative for extraction
 S = 0.01  # Specific storage
@@ -25,7 +23,6 @@ S = 0.01  # Specific storage
 # Stress period and time step information
 perlen = 1.04  # Stress period length (days)
 nstp = 10  # Number of time steps
-steady = False  # Transient simulation
 
 # Create the model
 model_name = "partpen"  # Shortened name
@@ -110,6 +107,6 @@ else:
         plt.savefig("drawdown.png")
 
 # Compare with Hantush analysis (you'll need to implement this separately)
-hantush_drawdown = 12.59
+hantush_drawdown = 12.49
 print(f"Hantush drawdown at observation well: {hantush_drawdown:.2f} ft")
 print(f"Difference: {abs(obs_drawdown - hantush_drawdown):.2f} ft")
