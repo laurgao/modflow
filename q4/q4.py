@@ -94,8 +94,7 @@ else:
         # Calculate drawdown
         drawdown = initial_head - head_data
 
-        # Print drawdown at observation well (assumed to be at the same location as pumping well)
-        obs_drawdown = drawdown[1, wel_loc[1] + 5, wel_loc[2]]  # Middle layer, center of grid
+        obs_drawdown = drawdown[1, wel_loc[1] + 5, wel_loc[2]]  # Middle layer, 50 ft away.
         print(f"MODFLOW drawdown at observation well: {obs_drawdown:.2f} ft")
 
         # Plot the drawdown
@@ -106,7 +105,7 @@ else:
         plt.ylabel("Row")
         plt.savefig("drawdown.png")
 
-# Compare with Hantush analysis (you'll need to implement this separately)
+# Compare with Hantush analysis
 hantush_drawdown = 12.49
 print(f"Hantush drawdown at observation well: {hantush_drawdown:.2f} ft")
 print(f"Difference: {abs(obs_drawdown - hantush_drawdown):.2f} ft")

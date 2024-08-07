@@ -4,7 +4,7 @@ from flopy.mf6.modflow import ModflowGwfic
 
 # Create the model
 name = "confined_aquifer"
-model_ws = "./confined_aquifer"
+model_ws = "./q2"
 sim = flopy.mf6.MFSimulation(sim_name=name, sim_ws=model_ws, exe_name="mf6")
 tdis = flopy.mf6.ModflowTdis(sim)
 ims = flopy.mf6.ModflowIms(sim)
@@ -37,18 +37,9 @@ ss = sc / (top - botm)
 npf = flopy.mf6.ModflowGwfnpf(gwf, k=k, save_specific_discharge=True)
 
 # Create storage package
-# Create storage package
-sto = flopy.mf6.ModflowGwfsto(
-    gwf,
-    ss=ss,
-    transient={0: False, 1: True},  # First period steady, second transient
-    steady_state={0: True, 1: False},  # First period steady, second transient
-)
+sto = flopy.mf6.ModflowGwfsto(gwf, ss=ss, transient={0: False, 1: True}, steady_state={0: True, 1: False})
 
 # Constant head for the river (west boundary)
-# chd_spd = []
-# for i in range(nrow):
-#     chd_spd.append([(0, i, 0), 140.0])  # Layer, row, column, head
 chd_spd = []
 for i in range(nrow):
     chd_spd.append([(0, i, 0), 140.0])  # This sets only the westernmost column to constant head
@@ -91,7 +82,6 @@ ims = flopy.mf6.ModflowIms(
     relaxation_factor=0.97,
 )
 
-# Create observation package
 # Create observation package
 obs_data = {"head_obs.csv": [("obs1", "HEAD", (0, 100, 6))]}  # Name, observation type, (layer, row, column)
 # obs_data = {"head_obs.csv": [("obs1", "HEAD", (0, 100, 14))]}  # Observation well
